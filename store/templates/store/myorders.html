@@ -1,0 +1,40 @@
+{% extends 'store/base.html' %}
+{% block content %}
+<h2 class="mb-4 fw-bold text-center">📦 My Orders</h2>
+
+{% if orders %}
+<div class="table-responsive shadow-sm rounded">
+    <table class="table align-middle table-borderless">
+        <thead class="table-light">
+            <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Total Price</th>
+                <th>Placed At</th>
+                <th class="text-end">Action</th> <!-- ✅ Added Action Column -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr class="border-bottom">
+                <td>#{{ order.id }}</td>
+                <td>{{ order.name }}</td>
+                <td>${{ order.total_price }}</td>
+                <td>{{ order.created_at|date:"M d, Y H:i" }}</td>
+                <td class="text-end">
+                    <a href="{% url 'order_detail' order.id %}" class="btn btn-outline-primary btn-sm">
+                        <i class="bi bi-eye"></i> View
+                    </a>
+                </td> <!-- ✅ View button for each order -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="alert alert-info text-center shadow-sm">
+    <h5>No orders found yet! 😢</h5>
+    <a href="{% url 'home' %}" class="btn btn-primary mt-3">Browse Products</a>
+</div>
+{% endif %}
+{% endblock %}

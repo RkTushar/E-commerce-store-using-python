@@ -1,0 +1,37 @@
+{% extends 'store/base.html' %}
+{% block content %}
+<div class="card shadow-sm p-4 rounded-4">
+    <h2 class="fw-bold mb-4">📦 Order #{{ order.id }}</h2>
+
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+            <strong>Customer:</strong> {{ order.name }}
+        </li>
+        <li class="list-group-item">
+            <strong>Email:</strong> {{ order.email }}
+        </li>
+        <li class="list-group-item">
+            <strong>Phone:</strong> {{ order.phone }}
+        </li>
+        <li class="list-group-item">
+            <strong>Address:</strong> {{ order.address }}
+        </li>
+        <li class="list-group-item">
+            <strong>Total Price:</strong> ${{ order.total_price }}
+        </li>
+        <li class="list-group-item">
+            <strong>Order Date:</strong> {{ order.created_at|date:"M d, Y H:i" }}
+        </li>
+    </ul>
+
+    <div class="d-flex justify-content-between align-items-center mt-4">
+        <a href="{% url 'my_orders' %}" class="btn btn-outline-primary">
+            ← Back to My Orders
+        </a>
+
+        <a href="{% url 'download_invoice' order.id %}" class="btn btn-success">
+            🧾 Download Invoice (PDF)
+        </a>
+    </div>
+</div>
+{% endblock %}

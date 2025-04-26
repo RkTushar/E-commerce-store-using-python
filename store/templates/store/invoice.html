@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Invoice #{{ order.id }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h2 {
+            margin: 0;
+        }
+
+        .info {
+            margin-bottom: 20px;
+        }
+
+        .info strong {
+            width: 120px;
+            display: inline-block;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 12px;
+            color: #888;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h2>🧾 Invoice - Order #{{ order.id }}</h2>
+        <p>Thank you for your purchase!</p>
+    </div>
+
+    <div class="info">
+        <p><strong>Name:</strong> {{ order.name }}</p>
+        <p><strong>Email:</strong> {{ order.email }}</p>
+        <p><strong>Phone:</strong> {{ order.phone }}</p>
+        <p><strong>Address:</strong> {{ order.address }}</p>
+        <p><strong>Total Amount:</strong> ${{ order.total_price }}</p>
+        <p><strong>Order Date:</strong> {{ order.created_at|date:"M d, Y H:i" }}</p>
+    </div>
+
+    <div class="footer">
+        &copy; {{ now|date:"Y" }} My E-commerce Store | Auto-generated Invoice
+    </div>
+</body>
+
+</html>
