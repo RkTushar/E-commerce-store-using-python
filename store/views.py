@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Product
+from django.contrib import messages
+from .models import Product, Order   # ✅ Import Order model
 
 # ✅ Home page view (listing all products)
 def home(request):
@@ -45,3 +46,44 @@ def remove_from_cart(request, pk):
         del cart[str(pk)]
         request.session['cart'] = cart
     return redirect('view_cart')
+
+# ✅ Checkout View
+def checkout(request):
+    cart = request.session.get('cart', {})
+    if not cart:
+        messages.warning(request, "Your cart is empty.")
+        return redirect('home')
+
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        address = request.POST.get('address')
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
+
+        total_price = 0
+        products = Product.objects.filter(id__in=cart.keys())
+        for product in products:
+            quantity = cart[str(product.id)]
+            total_price += product.price * quantity
+
+        # ✅ Save Order in database
+        order = Order.objects.create(
+            name=name,
+            address=address,
+            email=email,
+            phone=phone,
+            total_price=total_price
+        )
+
+        # ✅ Clear cart after successful order
+        request.session['cart'] = {}
+        messages.success(request, f"Order #{order.id} placed successfully!")
+        return redirect('home')
+
+    total_price = 0
+    products = Product.objects.filter(id__in=cart.keys())
+    for product in products:
+        quantity = cart[str(product.id)]
+        total_price += product.price * quantity
+
+    return render(request, 'store/checkout.html', {'total_price': total_price})

@@ -1,37 +1,57 @@
 {% extends 'store/base.html' %}
 {% block content %}
-<h2 class="mb-4">Your Cart</h2>
+<h2 class="mb-4 text-center fw-bold">🛒 Your Shopping Cart</h2>
 
 {% if cart_items %}
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Product</th>
-            <th>Quantity</th>
-            <th>Total</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for item in cart_items %}
-        <tr>
-            <td>{{ item.product.name }}</td>
-            <td>{{ item.quantity }}</td>
-            <td>${{ item.total }}</td>
-            <td>
-                <a href="{% url 'remove_from_cart' item.product.id %}" class="btn btn-danger btn-sm">
-                    Remove
-                </a>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div class="table-responsive shadow-sm rounded">
+    <table class="table align-middle table-borderless">
+        <thead class="table-light">
+            <tr>
+                <th scope="col">Product</th>
+                <th scope="col" class="text-center">Qty</th>
+                <th scope="col" class="text-end">Total</th>
+                <th scope="col" class="text-end">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart_items %}
+            <tr class="border-bottom">
+                <td>
+                    <strong>{{ item.product.name }}</strong><br>
+                    <small class="text-muted">${{ item.product.price }} each</small>
+                </td>
+                <td class="text-center">{{ item.quantity }}</td>
+                <td class="text-end">${{ item.total }}</td>
+                <td class="text-end">
+                    <a href="{% url 'remove_from_cart' item.product.id %}" class="btn btn-outline-danger btn-sm">
+                        <i class="bi bi-trash"></i> Remove
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 
-<h4 class="text-end">Grand Total: <span class="text-success">${{ total_price }}</span></h4>
+<div class="d-flex justify-content-between align-items-center mt-4">
+    <a href="{% url 'home' %}" class="btn btn-outline-primary">
+        ← Continue Shopping
+    </a>
+    <h4 class="text-success fw-semibold">Grand Total: ${{ total_price }}</h4>
+</div>
+
+<div class="text-end mt-3">
+    <a href="#" class="btn btn-success px-4 py-2">
+        <i class="bi bi-credit-card"></i> Proceed to Checkout
+    </a>
+</div>
+
 {% else %}
-<p>Your cart is empty.</p>
+<div class="alert alert-warning text-center shadow-sm p-4">
+    <h5>Your cart is empty 😢</h5>
+    <a href="{% url 'home' %}" class="btn btn-primary mt-3">
+        <i class="bi bi-arrow-left-circle"></i> Browse Products
+    </a>
+</div>
 {% endif %}
-
-<a href="{% url 'home' %}" class="btn btn-primary mt-4">Continue Shopping</a>
 {% endblock %}

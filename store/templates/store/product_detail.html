@@ -1,18 +1,44 @@
 {% extends 'store/base.html' %}
 {% block content %}
-<div class="row">
-    <div class="col-md-6">
-        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid rounded">
-    </div>
-    <div class="col-md-6">
-        <h2>{{ product.name }}</h2>
-        <h4 class="text-success mb-3">${{ product.price }}</h4>
-        <p>{{ product.description }}</p>
+<style>
+    .product-detail {
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+        overflow: hidden;
+        padding: 30px;
+    }
 
-        <a href="{% url 'add_to_cart' product.id %}" class="btn btn-success mt-3">
-            <i class="bi bi-cart-plus"></i> Add to Cart
-        </a>
+    .product-image {
+        width: 100%;
+        height: 350px;
+        object-fit: contain;
+        border: 1px solid #eee;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+    }
+</style>
 
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <div class="product-detail">
+            <div class="row">
+                <div class="col-md-6 text-center mb-4 mb-md-0">
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
+                </div>
+                <div class="col-md-6">
+                    <h2 class="fw-bold">{{ product.name }}</h2>
+                    <h4 class="text-success my-3">$ {{ product.price }}</h4>
+                    <p class="text-muted">{{ product.description }}</p>
+
+                    <div class="d-grid mt-4">
+                        <a href="{% url 'add_to_cart' product.id %}" class="btn btn-lg btn-primary">
+                            <i class="bi bi-cart-plus me-2"></i> Add to Cart
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
