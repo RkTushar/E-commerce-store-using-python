@@ -11,7 +11,7 @@
                 <th>Customer</th>
                 <th>Total Price</th>
                 <th>Placed At</th>
-                <th class="text-end">Action</th> <!-- ✅ Added Action Column -->
+                <th class="text-end">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -25,7 +25,7 @@
                     <a href="{% url 'order_detail' order.id %}" class="btn btn-outline-primary btn-sm">
                         <i class="bi bi-eye"></i> View
                     </a>
-                </td> <!-- ✅ View button for each order -->
+                </td>
             </tr>
             {% endfor %}
         </tbody>
