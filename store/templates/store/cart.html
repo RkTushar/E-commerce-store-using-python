@@ -1,16 +1,16 @@
 {% extends 'store/base.html' %}
 {% block content %}
-<h2 class="mb-4 text-center fw-bold">🛒 Your Shopping Cart</h2>
+<h2 class="mb-4 fw-bold text-center">🛒 Your Shopping Cart</h2>
 
 {% if cart_items %}
-<div class="table-responsive shadow-sm rounded">
-    <table class="table align-middle table-borderless">
+<div class="table-responsive shadow rounded-4 p-3 bg-white">
+    <table class="table align-middle mb-0">
         <thead class="table-light">
             <tr>
-                <th scope="col">Product</th>
-                <th scope="col" class="text-center">Qty</th>
-                <th scope="col" class="text-end">Total</th>
-                <th scope="col" class="text-end">Action</th>
+                <th>Product</th>
+                <th class="text-center">Qty</th>
+                <th class="text-end">Price</th>
+                <th class="text-end">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -20,8 +20,12 @@
                     <strong>{{ item.product.name }}</strong><br>
                     <small class="text-muted">${{ item.product.price }} each</small>
                 </td>
-                <td class="text-center">{{ item.quantity }}</td>
-                <td class="text-end">${{ item.total }}</td>
+                <td class="text-center">
+                    <span class="badge bg-primary rounded-pill">{{ item.quantity }}</span>
+                </td>
+                <td class="text-end">
+                    ${{ item.total }}
+                </td>
                 <td class="text-end">
                     <a href="{% url 'remove_from_cart' item.product.id %}" class="btn btn-outline-danger btn-sm">
                         <i class="bi bi-trash"></i> Remove
@@ -35,7 +39,7 @@
 
 <div class="d-flex justify-content-between align-items-center mt-4">
     <a href="{% url 'home' %}" class="btn btn-outline-primary">
-        ← Continue Shopping
+        <i class="bi bi-arrow-left"></i> Continue Shopping
     </a>
     <h4 class="text-success fw-semibold">Grand Total: ${{ total_price }}</h4>
 </div>
@@ -46,9 +50,8 @@
     </a>
 </div>
 
-
 {% else %}
-<div class="alert alert-warning text-center shadow-sm p-4">
+<div class="alert alert-warning text-center p-4">
     <h5>Your cart is empty 😢</h5>
     <a href="{% url 'home' %}" class="btn btn-primary mt-3">
         <i class="bi bi-arrow-left-circle"></i> Browse Products

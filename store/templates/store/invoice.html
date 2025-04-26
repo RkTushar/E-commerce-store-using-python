@@ -6,8 +6,20 @@
     <title>Invoice #{{ order.id }}</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 30px;
+            background: #f4f6f9;
+            color: #333;
             font-size: 14px;
+        }
+
+        .invoice-container {
+            max-width: 700px;
+            margin: auto;
+            background: #ffffff;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
         }
 
         .header {
@@ -17,44 +29,78 @@
 
         .header h2 {
             margin: 0;
+            font-size: 26px;
+            color: #2c3e50;
         }
 
-        .info {
-            margin-bottom: 20px;
+        .header p {
+            margin-top: 5px;
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+
+        .section-title {
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #34495e;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 5px;
+        }
+
+        .info p {
+            margin: 8px 0;
+            font-size: 14px;
         }
 
         .info strong {
-            width: 120px;
             display: inline-block;
+            width: 130px;
+            color: #555;
+        }
+
+        .total {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+            text-align: right;
+            color: #27ae60;
         }
 
         .footer {
             text-align: center;
             margin-top: 50px;
             font-size: 12px;
-            color: #888;
+            color: #aaa;
         }
     </style>
 </head>
 
 <body>
-    <div class="header">
-        <h2>🧾 Invoice - Order #{{ order.id }}</h2>
-        <p>Thank you for your purchase!</p>
+
+    <div class="invoice-container">
+        <div class="header">
+            <h2>🧾 Invoice - Order #{{ order.id }}</h2>
+            <p>Thank you for your purchase!</p>
+        </div>
+
+        <div class="info">
+            <div class="section-title">Customer Information</div>
+            <p><strong>Name:</strong> {{ order.name }}</p>
+            <p><strong>Email:</strong> {{ order.email }}</p>
+            <p><strong>Phone:</strong> {{ order.phone }}</p>
+            <p><strong>Address:</strong> {{ order.address }}</p>
+
+            <div class="section-title mt-4">Order Details</div>
+            <p><strong>Order Date:</strong> {{ order.created_at|date:"M d, Y H:i" }}</p>
+            <p class="total">Total: ${{ order.total_price }}</p>
+        </div>
+
+        <div class="footer">
+            &copy; {{ now|date:"Y" }} MyStore - Auto-generated Invoice
+        </div>
     </div>
 
-    <div class="info">
-        <p><strong>Name:</strong> {{ order.name }}</p>
-        <p><strong>Email:</strong> {{ order.email }}</p>
-        <p><strong>Phone:</strong> {{ order.phone }}</p>
-        <p><strong>Address:</strong> {{ order.address }}</p>
-        <p><strong>Total Amount:</strong> ${{ order.total_price }}</p>
-        <p><strong>Order Date:</strong> {{ order.created_at|date:"M d, Y H:i" }}</p>
-    </div>
-
-    <div class="footer">
-        &copy; {{ now|date:"Y" }} My E-commerce Store | Auto-generated Invoice
-    </div>
 </body>
 
 </html>

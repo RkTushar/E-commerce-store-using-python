@@ -1,43 +1,46 @@
 {% extends 'store/base.html' %}
 {% block content %}
+<h2 class="mb-5 fw-bold text-center display-6">💳 Checkout</h2>
+
 <div class="row justify-content-center">
     <div class="col-md-8 col-lg-6">
-        <div class="card shadow-sm p-4 rounded-4">
-            <h2 class="mb-4 text-center">🛒 Checkout</h2>
-
+        <div class="card shadow rounded-4 border-0 p-4">
             <form method="post" novalidate>
                 {% csrf_token %}
 
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" name="name" id="name" placeholder="Your Full Name" required>
+                    <input type="text" class="form-control" name="name" id="name" placeholder="John Doe" required>
                     <label for="name">Full Name</label>
                 </div>
 
                 <div class="form-floating mb-3">
-                    <textarea class="form-control" name="address" id="address" placeholder="Your Address"
-                        style="height: 100px" required></textarea>
-                    <label for="address">Address</label>
+                    <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com"
+                        required>
+                    <label for="email">Email Address</label>
                 </div>
 
                 <div class="form-floating mb-3">
-                    <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
-                    <label for="email">Email</label>
+                    <input type="text" class="form-control" name="phone" id="phone" placeholder="Phone Number" required>
+                    <label for="phone">Phone Number</label>
                 </div>
 
                 <div class="form-floating mb-4">
-                    <input type="text" class="form-control" name="phone" id="phone" placeholder="Phone Number" required>
-                    <label for="phone">Phone</label>
+                    <textarea class="form-control" name="address" id="address" placeholder="Delivery Address"
+                        style="height: 120px" required></textarea>
+                    <label for="address">Shipping Address</label>
                 </div>
 
-                <div class="mb-3 text-end">
-                    <h5>Total: <span class="text-success">${{ total_price }}</span></h5>
+                <div class="text-end mb-3">
+                    <h5>Total: <span class="text-success fw-bold">${{ total_price }}</span></h5>
                 </div>
 
-                <button type="submit" class="btn btn-success w-100 py-2">
-                    <i class="bi bi-bag-check"></i> Place Order
-                </button>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-success btn-lg">
+                        <i class="bi bi-bag-check"></i> Place Order
+                    </button>
+                </div>
+
             </form>
-
         </div>
     </div>
 </div>
